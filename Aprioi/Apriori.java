@@ -104,7 +104,14 @@ class Apriori{
     return combinations;
 }
 
-
+	/*========================================================
+	getFrequentItemsets: Gets all the frequest itemset give a 
+	size for the dataset.
+	----------------------------------------------------------
+	String filePath: path of the file with the dataset
+	double threshold: mins of support needed to pass.
+	int itemSetSize: size of the item set.
+	==========================================================*/
 	
 	public static HashMap<HashSet<String>,Double> getFrequentItemsets(String filePath,double threshold,int itemSetSize){
 		HashMap<HashSet<String>,Double> lk=new HashMap<HashSet<String>,Double>();
@@ -112,7 +119,7 @@ class Apriori{
 		String line=null;
 
 		List<String> itemList=new LinkedList<String>(candidates);
-		List<List<String>> itemCombinations=getCombinations(itemList,itemSetSize);
+		List<List<String>> itemCombinations=new LinkedList<List<String>>(getCombinations(itemList,itemSetSize));
 		
 
 		for(int i=0;i<itemCombinations.size();i++){
@@ -189,9 +196,14 @@ class Apriori{
 		return lk;
 	}
 
-	
+	/*========================================================
+	aprioriIterations: executes the apriori algorithm
+	----------------------------------------------------------
+	String filePath: path of the file with the dataset
+	double threshold: mins of support needed to pass.
+	==========================================================*/
 	public static void aprioriIterations(String filePath,double threshold){
-		getCandidates("dataset.txt",0.5);    
+		getCandidates("dataset.txt",threshold);    
 		int k=2;
 		boolean next=true;
 		while(next){
@@ -204,6 +216,6 @@ class Apriori{
 	}
 
 	public static void main(String args[]){
-		aprioriIterations("dataset.txt",0.5);
+		aprioriIterations("dataset.txt",0.9);
 	}
 }
