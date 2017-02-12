@@ -1,5 +1,0 @@
-class ItemSet(){
-	public ItemSet(){
-	
-	}
-}
