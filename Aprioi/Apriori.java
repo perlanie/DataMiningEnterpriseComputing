@@ -36,7 +36,7 @@ class Apriori{
 				numTransactions++;
 			}
 			reader.close();
-
+		
 			HashSet<HashSet<String>> itemsNotSupported=new HashSet<HashSet<String>>();
 			for(HashSet<String> key:l1.keySet()){
 				double support=l1.get(key)/numTransactions;
@@ -160,17 +160,11 @@ class Apriori{
 			reader.close();
 
 			HashSet<HashSet<String>> itemsNotSupported=new HashSet<HashSet<String>>();
-			candidates=new HashSet<String>();
+			
 			for(HashSet<String> key:lk.keySet()){
 				double support=lk.get(key)/numTransactions;
 				if(support<threshold){
 					itemsNotSupported.add(key);
-					for(String k: key){
-						if(!(candidates.contains(k))){
-							candidates.add(k);
-						}
-					}
-
 				}
 				else{
 					lk.put(key,support);
@@ -182,11 +176,21 @@ class Apriori{
 				lk.remove(item);
 			}
 
+			//gets the new candidates for the next iteration
+			candidates=new HashSet<String>();
+
+			for(HashSet<String> key:lk.keySet()){
+				for(String k: key){
+					if(!(candidates.contains(k))){
+						candidates.add(k);
+					}
+				}
+			}
+
 			if(lk.size()!=0){
-				System.out.println("L"+itemSetSize+ "= "+lk.keySet());
+				System.out.println("L"+itemSetSize+ " = "+lk.keySet());
 				frequentItemSets.put(itemSetSize,lk);
 			}
-			
 
 		}
 		catch (IOException e){
