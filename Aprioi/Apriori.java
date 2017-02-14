@@ -207,7 +207,7 @@ class Apriori{
 	double threshold: mins of support needed to pass.
 	==========================================================*/
 	public static void aprioriIterations(String filePath,double threshold){
-		getCandidates("dataset.txt",threshold);    
+		getCandidates(filePath,threshold);    
 		int k=2;
 		boolean next=true;
 		while(next){
